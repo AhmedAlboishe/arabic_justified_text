@@ -44,7 +44,32 @@ class TextProcessor {
       'ى',
     ];
 
-    const excluded = ['ا', 'أ', 'إ', 'آ', 'د', 'ذ', 'ر', 'ز', 'و', 'ء', '،'];
+    const excluded = [
+      'ا',
+      'أ',
+      'إ',
+      'آ',
+      'د',
+      'ذ',
+      'ر',
+      'ز',
+      'و',
+      'ء',
+      '،',
+      'َ',
+      'ٕ',
+      'ً',
+      'ّ',
+      'ٌ',
+      'ٍ',
+      'ْ',
+      'ٔ',
+      'ٰ',
+      'ٖ',
+      'ٓ',
+      'ِ',
+      'ُ',
+    ];
 
     return connecting.contains(char) &&
         !excluded.contains(nextChar) &&
