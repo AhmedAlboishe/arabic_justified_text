@@ -35,25 +35,40 @@ class ArabicJustifiedText extends StatelessWidget {
       builder: (context, constraints) {
         final textStyle = style ?? DefaultTextStyle.of(context).style;
 
-        // قسم النص لأسطر
-        final lines = _splitIntoLines(text, textStyle, constraints.maxWidth);
+        // قسم النص حسب \n أولاً
+        final paragraphs = text.split('\n');
+        final allSpans = <TextSpan>[];
 
-        // ابني TextSpan لكل سطر
-        final spans = <TextSpan>[];
+        for (int p = 0; p < paragraphs.length; p++) {
+          final paragraph = paragraphs[p];
 
-        for (int i = 0; i < lines.length; i++) {
-          final isLastLine = i == lines.length - 1;
+          if (paragraph.trim().isEmpty) {
+            // سطر فارغ - احتفظ به
+            allSpans.add(const TextSpan(text: '\n'));
+            continue;
+          }
 
-          // برر السطر إذا مو السطر الأخير
-          final lineText = isLastLine
-              ? lines[i]
-              : _justifyLine(lines[i], textStyle, constraints.maxWidth);
+          // قسم الفقرة لأسطر حسب العرض
+          final lines = _splitIntoLines(
+            paragraph,
+            textStyle,
+            constraints.maxWidth,
+          );
 
-          spans.add(TextSpan(text: lineText));
+          for (int i = 0; i < lines.length; i++) {
+            final isLastLineInParagraph = i == lines.length - 1;
 
-          // أضف سطر جديد إلا للسطر الأخير
-          if (!isLastLine) {
-            spans.add(const TextSpan(text: '\n'));
+            // برر السطر إذا مو السطر الأخير في الفقرة
+            final lineText = isLastLineInParagraph
+                ? lines[i]
+                : _justifyLine(lines[i], textStyle, constraints.maxWidth);
+
+            allSpans.add(TextSpan(text: lineText));
+
+            // أضف سطر جديد
+            if (!isLastLineInParagraph || p < paragraphs.length - 1) {
+              allSpans.add(const TextSpan(text: '\n'));
+            }
           }
         }
 
@@ -61,7 +76,7 @@ class ArabicJustifiedText extends StatelessWidget {
           textDirection: TextDirection.rtl,
           maxLines: maxLines,
           overflow: overflow ?? TextOverflow.clip,
-          text: TextSpan(style: textStyle, children: spans),
+          text: TextSpan(style: textStyle, children: allSpans),
         );
       },
     );

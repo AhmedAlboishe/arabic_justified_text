@@ -1,14 +1,17 @@
 import 'text_processor.dart';
 
 class KashidaCalculator {
-  /// أضف كشيدة واحدة للكلمة في أفضل موقع
+  /// أضف كشيدة واحدة للكلمة في موقع محدد
   static String addOneKashida(String word, int positionIndex) {
     if (!TextProcessor.isArabicWord(word)) return word;
 
     final positions = TextProcessor.getKashidaPositions(word);
     if (positions.isEmpty || positionIndex >= positions.length) return word;
 
-    final pos = positions[positionIndex];
+    final kashidaPos = positions[positionIndex];
+    final pos = kashidaPos.position;
+
+    // أضف الكشيدة بعد الحرف والتشكيل
     return '${word.substring(0, pos)}ـ${word.substring(pos)}';
   }
 
