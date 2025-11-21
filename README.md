@@ -32,17 +32,17 @@
 
 ## Table of Contents
 
-- [📦 Installation](#📦-installation)
-- [🚀 Quick Start](#🚀-quick-start)
-- [📖 Parameters](#📖-parameters)
-- [💡 Examples](#💡-examples)
-- [🤝 Contributing](#🤝-contributing)
-- [📋 Roadmap](#📋-roadmap)
-- [🐛 Known Issues](#🐛-known-issues)
-- [⭐ Show Your Support](#⭐-show-your-support)
+- [📦 Installation](#installation)
+- [🚀 Quick Start](#quick-start)
+- [📖 Parameters](#parameters)
+- [💡 Examples](#examples)
+- [🤝 Contributing](#contributing)
+- [📋 Roadmap](#roadmap)
+- [🐛 Known Issues](#known-issues)
+- [⭐ Show Your Support](#show-your-support)
 
 
-## 📦 Installation
+<h2 id="installation">📦 Installation</h2>
 
 Add this to your package's `pubspec.yaml` file:
 
@@ -56,7 +56,7 @@ Then run:
 flutter pub get
 ```
 
-## 🚀 Quick Start
+<h2 id="quick-start">🚀 Quick Start</h2>
 ### Basic Usage
 
 ```Dart
@@ -92,7 +92,7 @@ ArabicJustifiedText(
 ```
 
 
-## 📖 Parameters
+<h2 id="parameters">📖 Parameters</h2>
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
@@ -103,7 +103,7 @@ ArabicJustifiedText(
 | `overflow` | `TextOverflow?` | `null` | How to handle text overflow |
 
 
-## 💡 Examples
+<h2 id="examples">💡 Examples</h2>
 ### 1. Simple Text
 
 ```Dart
@@ -162,7 +162,7 @@ ArabicJustifiedText(
 )
 ```
 
-## 🤝 Contributing
+<h2 id="contributing">🤝 Contributing</h2>
 Contributions are welcome! Here's how you can help:
 
 1. 🐛 **Report Bugs** - Open an issue describing the bug
@@ -172,7 +172,7 @@ Contributions are welcome! Here's how you can help:
 5. ⭐ **Star the Repo** - Show your support!
 
 
-## 📋 Roadmap
+<h2 id="roadmap">📋 Roadmap</h2>
 - Add more customization options
 - Support for different Kashida styles
 - Performance improvements for very long texts
@@ -181,10 +181,10 @@ Contributions are welcome! Here's how you can help:
 - Web demo
 
 
-## 🐛 Known Issues
+<h2 id="known-issues">🐛 Known Issues</h2>
 - Very long words might overflow on narrow screens (use maxLines to handle)
 - Performance may vary with extremely long texts (>10,000 characters)
 
 
-## ⭐ Show Your Support
+<h2 id="show-your-support">⭐ Show Your Support</h2>
 If this package helped you, please give it a ⭐ on [GitHub!](https://github.com/AhmedAlboishe/arabic_justified_text)
