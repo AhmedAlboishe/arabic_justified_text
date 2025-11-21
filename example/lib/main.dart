@@ -1,5 +1,8 @@
+// ignore: depend_on_referenced_packages
 import 'package:arabic_justified_text/arabic_justified_text.dart';
 import 'package:flutter/material.dart';
+// ignore: depend_on_referenced_packages
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() => runApp(const MyApp());
 
@@ -10,9 +13,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Arabic Justified Text',
-      theme: ThemeData(primarySwatch: Colors.blue),
+      localizationsDelegates: const [
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [Locale('en'), Locale('ar')],
+      locale: const Locale('ar'),
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      themeMode: ThemeMode.light,
       home: const DemoPage(),
-      debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: true,
     );
   }
 }
@@ -54,8 +66,8 @@ class _DemoPageState extends State<DemoPage> {
               padding: const EdgeInsets.all(16),
               child: Column(
                 children: [
-                  Row(
-                    children: const [
+                  const Row(
+                    children: [
                       Icon(Icons.settings, color: Colors.blue),
                       SizedBox(width: 8),
                       Text(
@@ -135,8 +147,8 @@ class _DemoPageState extends State<DemoPage> {
               borderRadius: BorderRadius.circular(12),
               border: Border.all(color: Colors.purple.shade300),
             ),
-            child: Column(
-              children: const [
+            child: const Column(
+              children: [
                 Icon(Icons.info_outline, color: Colors.purple, size: 32),
                 SizedBox(height: 8),
                 Text(

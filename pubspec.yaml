@@ -1,5 +1,5 @@
 name: arabic_justified_text
-description: "A new Flutter package project."
+description: "Beautiful Arabic text justification using Kashida (ـ) instead of spaces."
 version: 0.0.1
 homepage:
 
