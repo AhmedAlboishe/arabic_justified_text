@@ -48,7 +48,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  arabic_justified_text: ^0.0.2
+  arabic_justified_text: ^0.0.3
 ```
 Then run:
 

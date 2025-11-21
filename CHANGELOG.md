@@ -1,3 +1,6 @@
+## 0.0.3
+ * **Fix headers and links in README.md**
+
 ## 0.0.2
  * **Update README.md file**
 
