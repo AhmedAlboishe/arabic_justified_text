@@ -48,7 +48,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  arabic_justified_text: ^0.0.3
+  arabic_justified_text: ^0.0.4
 ```
 Then run:
 
@@ -57,6 +57,7 @@ flutter pub get
 ```
 
 <h2 id="quick-start">🚀 Quick Start</h2>
+
 ### Basic Usage
 
 ```Dart
@@ -104,6 +105,7 @@ ArabicJustifiedText(
 
 
 <h2 id="examples">💡 Examples</h2>
+
 ### 1. Simple Text
 
 ```Dart
@@ -163,6 +165,7 @@ ArabicJustifiedText(
 ```
 
 <h2 id="contributing">🤝 Contributing</h2>
+
 Contributions are welcome! Here's how you can help:
 
 1. 🐛 **Report Bugs** - Open an issue describing the bug
@@ -173,6 +176,7 @@ Contributions are welcome! Here's how you can help:
 
 
 <h2 id="roadmap">📋 Roadmap</h2>
+
 - Add more customization options
 - Support for different Kashida styles
 - Performance improvements for very long texts
@@ -182,9 +186,11 @@ Contributions are welcome! Here's how you can help:
 
 
 <h2 id="known-issues">🐛 Known Issues</h2>
+
 - Very long words might overflow on narrow screens (use maxLines to handle)
 - Performance may vary with extremely long texts (>10,000 characters)
 
 
 <h2 id="show-your-support">⭐ Show Your Support</h2>
+
 If this package helped you, please give it a ⭐ on [GitHub!](https://github.com/AhmedAlboishe/arabic_justified_text)
