@@ -13,9 +13,8 @@
 
 </div>
 
----
 
-## <a name="english"></a>🌟 Overview
+## 🌟 Overview
 
 **Arabic Justified Text** is a Flutter package that provides beautiful text justification for Arabic text using **Kashida (ـ)** instead of adding extra spaces between words. This creates a more natural and aesthetically pleasing appearance for justified Arabic text.
 
@@ -30,7 +29,18 @@
 - ✅ **Performance Optimized** - Efficient text processing
 - ✅ **RTL Support** - Built-in right-to-left text direction
 
----
+
+## Table of Contents
+
+- [📦 Installation](#📦-installation)
+- [🚀 Quick Start](#🚀-quick-start)
+- [📖 Parameters](#📖-parameters)
+- [💡 Examples](#💡-examples)
+- [🤝 Contributing](#🤝-contributing)
+- [📋 Roadmap](#📋-roadmap)
+- [🐛 Known Issues](#🐛-known-issues)
+- [⭐ Show Your Support](#⭐-show-your-support)
+
 
 ## 📦 Installation
 
@@ -38,7 +48,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  arabic_justified_text: ^1.0.0
+  arabic_justified_text: ^0.0.2
 ```
 Then run:
 
@@ -81,7 +91,6 @@ ArabicJustifiedText(
 )
 ```
 
----
 
 ## 📖 Parameters
 
@@ -93,7 +102,6 @@ ArabicJustifiedText(
 | `maxLines` | `int?` | `null` | Maximum number of lines |
 | `overflow` | `TextOverflow?` | `null` | How to handle text overflow |
 
----
 
 ## 💡 Examples
 ### 1. Simple Text
@@ -153,7 +161,6 @@ ArabicJustifiedText(
   enableKashida: useKashida,
 )
 ```
----
 
 ## 🤝 Contributing
 Contributions are welcome! Here's how you can help:
@@ -164,7 +171,6 @@ Contributions are welcome! Here's how you can help:
 4. 📖 **Improve Documentation** - Help make docs better
 5. ⭐ **Star the Repo** - Show your support!
 
----
 
 ## 📋 Roadmap
 - Add more customization options
@@ -174,13 +180,11 @@ Contributions are welcome! Here's how you can help:
 - Support for other RTL languages (Persian, Urdu)
 - Web demo
 
---- 
 
 ## 🐛 Known Issues
 - Very long words might overflow on narrow screens (use maxLines to handle)
 - Performance may vary with extremely long texts (>10,000 characters)
 
----
 
 ## ⭐ Show Your Support
 If this package helped you, please give it a ⭐ on [GitHub!](https://github.com/AhmedAlboishe/arabic_justified_text)
