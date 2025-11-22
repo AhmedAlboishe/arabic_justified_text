@@ -7,6 +7,8 @@ class ArabicJustifiedText extends StatelessWidget {
   final TextStyle? style;
   final int? maxLines;
   final TextOverflow? overflow;
+  final TextDirection textDirection;
+  final TextAlign textAlign;
   final bool enableKashida;
 
   const ArabicJustifiedText(
@@ -15,6 +17,8 @@ class ArabicJustifiedText extends StatelessWidget {
     this.style,
     this.maxLines,
     this.overflow,
+    this.textDirection = TextDirection.rtl,
+    this.textAlign = TextAlign.justify,
     this.enableKashida = true,
   });
 
@@ -24,10 +28,10 @@ class ArabicJustifiedText extends StatelessWidget {
       return Text(
         text,
         style: style,
-        textAlign: TextAlign.justify,
+        textAlign: textAlign,
         maxLines: maxLines,
         overflow: overflow,
-        textDirection: TextDirection.rtl,
+        textDirection: textDirection,
       );
     }
 
@@ -61,7 +65,6 @@ class ArabicJustifiedText extends StatelessWidget {
           overflow: style?.overflow,
         );
 
-        // قسم النص حسب \n أولاً
         final paragraphs = text.split('\n');
         final allSpans = <TextSpan>[];
 
@@ -69,12 +72,10 @@ class ArabicJustifiedText extends StatelessWidget {
           final paragraph = paragraphs[p];
 
           if (paragraph.trim().isEmpty) {
-            // سطر فارغ - احتفظ به
             allSpans.add(const TextSpan(text: '\n'));
             continue;
           }
 
-          // قسم الفقرة لأسطر حسب العرض
           final lines = _splitIntoLines(
             paragraph,
             textStyle,
@@ -84,14 +85,12 @@ class ArabicJustifiedText extends StatelessWidget {
           for (int i = 0; i < lines.length; i++) {
             final isLastLineInParagraph = i == lines.length - 1;
 
-            // برر السطر إذا مو السطر الأخير في الفقرة
             final lineText = isLastLineInParagraph
                 ? lines[i]
                 : _justifyLine(lines[i], textStyle, constraints.maxWidth);
 
             allSpans.add(TextSpan(text: lineText));
 
-            // أضف سطر جديد
             if (!isLastLineInParagraph || p < paragraphs.length - 1) {
               allSpans.add(const TextSpan(text: '\n'));
             }
@@ -99,7 +98,8 @@ class ArabicJustifiedText extends StatelessWidget {
         }
 
         return RichText(
-          textDirection: TextDirection.rtl,
+          textDirection: textDirection,
+          textAlign: textAlign,
           maxLines: maxLines,
           overflow: overflow ?? TextOverflow.clip,
           text: TextSpan(style: textStyle, children: allSpans),
@@ -118,7 +118,7 @@ class ArabicJustifiedText extends StatelessWidget {
 
       final painter = TextPainter(
         text: TextSpan(text: testLine, style: style),
-        textDirection: TextDirection.rtl,
+        textDirection: textDirection,
       )..layout();
 
       if (painter.width <= maxWidth) {
@@ -143,31 +143,27 @@ class ArabicJustifiedText extends StatelessWidget {
 
     if (words.length <= 1) return line;
 
-    // قياس العرض الحالي
     final painter = TextPainter(
       text: TextSpan(text: line, style: style),
-      textDirection: TextDirection.rtl,
+      textDirection: textDirection,
     )..layout();
 
     final currentWidth = painter.width;
 
-    // قياس عرض الكشيدة
     final kashidaPainter = TextPainter(
       text: TextSpan(text: 'ـ', style: style),
-      textDirection: TextDirection.rtl,
+      textDirection: textDirection,
     )..layout();
 
     final kashidaWidth = kashidaPainter.width;
 
     if (kashidaWidth <= 0 || currentWidth >= maxWidth) return line;
 
-    // احسب كم كشيدة نحتاج
     final spaceNeeded = maxWidth - currentWidth;
     int kashidasNeeded = (spaceNeeded / kashidaWidth).floor();
 
     if (kashidasNeeded <= 0) return line;
 
-    // ابحث عن الكلمات العربية
     final arabicWordInfo = <MapEntry<int, int>>[];
 
     for (int i = 0; i < words.length; i++) {
@@ -179,41 +175,37 @@ class ArabicJustifiedText extends StatelessWidget {
 
     if (arabicWordInfo.isEmpty) return line;
 
-    // وزع الكشيدات
     final distribution = <int, int>{};
     int remaining = kashidasNeeded;
-    int round = 0;
 
-    while (remaining > 0 && round < 10) {
-      bool added = false;
+    while (remaining > 0) {
+      bool distributed = false;
 
       for (final entry in arabicWordInfo) {
         if (remaining <= 0) break;
 
         final wordIndex = entry.key;
-        final maxKashidas = entry.value;
+        final maxPositions = entry.value;
         final currentKashidas = distribution[wordIndex] ?? 0;
 
-        if (currentKashidas < maxKashidas) {
+        final maxKashidasPerWord = maxPositions * 3;
+
+        if (currentKashidas < maxKashidasPerWord) {
           distribution[wordIndex] = currentKashidas + 1;
           remaining--;
-          added = true;
+          distributed = true;
         }
       }
 
-      if (!added) break;
-      round++;
+      if (!distributed) break;
     }
 
-    // طبق الكشيدات
     final resultWords = <String>[];
     for (int i = 0; i < words.length; i++) {
       String word = words[i];
       final kashidaCount = distribution[i] ?? 0;
 
-      for (int k = 0; k < kashidaCount; k++) {
-        word = KashidaCalculator.addOneKashida(word, k);
-      }
+      word = KashidaCalculator.addKashidasToWord(word, kashidaCount);
 
       resultWords.add(word);
     }
