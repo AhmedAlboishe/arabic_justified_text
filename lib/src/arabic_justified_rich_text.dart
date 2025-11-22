@@ -36,9 +36,7 @@ class ArabicJustifiedRichText extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final defaultStyle = DefaultTextStyle.of(context).style;
-
-        final segments = _extractTextSegments(textSpan, defaultStyle);
+        final segments = _extractTextSegments(textSpan);
 
         final lines = _splitIntoLines(segments, constraints.maxWidth);
 
@@ -58,29 +56,25 @@ class ArabicJustifiedRichText extends StatelessWidget {
     );
   }
 
-  List<TextSegment> _extractTextSegments(
-    InlineSpan span,
-    TextStyle defaultStyle,
-  ) {
+  List<TextSegment> _extractTextSegments(InlineSpan span) {
     final segments = <TextSegment>[];
 
     void extractFromSpan(InlineSpan span, TextStyle? parentStyle) {
       if (span is TextSpan) {
-        final baseStyle = defaultStyle.merge(parentStyle);
-        final finalStyle = baseStyle.merge(span.style);
+        final style = parentStyle?.merge(span.style) ?? span.style;
 
         if (span.text != null && span.text!.isNotEmpty) {
           segments.add(
             TextSegment(
               text: span.text!,
-              style: finalStyle,
+              style: style,
             ),
           );
         }
 
         if (span.children != null) {
           for (final child in span.children!) {
-            extractFromSpan(child, finalStyle);
+            extractFromSpan(child, style);
           }
         }
       }
