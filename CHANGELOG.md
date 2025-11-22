@@ -1,3 +1,10 @@
+## 0.0.6
+
+### 📚 Documentation
+* **Added comprehensive dartdoc comments** - All public APIs now have detailed documentation
+* **Improved API documentation** - Added examples and usage guides for all widgets
+* **Clarified WidgetSpan limitation** - Documented that `ArabicJustifiedRichText` does not support `WidgetSpan`
+
 ## 0.0.5
 
 ### New Features
