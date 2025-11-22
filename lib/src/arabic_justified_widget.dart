@@ -39,33 +39,7 @@ class ArabicJustifiedText extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final textStyle = DefaultTextStyle.of(context).style.copyWith(
-          color: style?.color,
-          fontSize: style?.fontSize,
-          fontWeight: style?.fontWeight,
-          fontStyle: style?.fontStyle,
-          letterSpacing: style?.letterSpacing,
-          wordSpacing: style?.wordSpacing,
-          height: style?.height,
-          decoration: style?.decoration,
-          decorationColor: style?.decorationColor,
-          decorationStyle: style?.decorationStyle,
-          decorationThickness: style?.decorationThickness,
-          shadows: style?.shadows,
-          fontFamily: style?.fontFamily,
-          fontFamilyFallback: style?.fontFamilyFallback,
-          backgroundColor: style?.backgroundColor,
-          foreground: style?.foreground,
-          background: style?.background,
-          textBaseline: style?.textBaseline,
-          leadingDistribution: style?.leadingDistribution,
-          locale: style?.locale,
-          fontFeatures: style?.fontFeatures,
-          fontVariations: style?.fontVariations,
-          debugLabel: style?.debugLabel,
-          inherit: style?.inherit,
-          overflow: style?.overflow,
-        );
+        final textStyle = DefaultTextStyle.of(context).style.merge(style);
 
         final paragraphs = text.split('\n');
         final allSpans = <TextSpan>[];
