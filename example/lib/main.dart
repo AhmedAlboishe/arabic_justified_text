@@ -1,7 +1,5 @@
-// ignore: depend_on_referenced_packages
 import 'package:arabic_justified_text/arabic_justified_text.dart';
 import 'package:flutter/material.dart';
-// ignore: depend_on_referenced_packages
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() => runApp(const MyApp());

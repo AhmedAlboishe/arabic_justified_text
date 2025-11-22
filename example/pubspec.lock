@@ -2,7 +2,7 @@
 # See https://dart.dev/tools/pub/glossary#lockfile
 packages:
   arabic_justified_text:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       path: ".."
       relative: true
@@ -78,7 +78,7 @@ packages:
     source: hosted
     version: "5.0.0"
   flutter_localizations:
-    dependency: "direct dev"
+    dependency: "direct main"
     description: flutter
     source: sdk
     version: "0.0.0"
@@ -229,5 +229,5 @@ packages:
     source: hosted
     version: "15.0.2"
 sdks:
-  dart: ">=3.10.0 <4.0.0"
+  dart: ">=3.9.2 <4.0.0"
   flutter: ">=3.18.0-18.0.pre.54"

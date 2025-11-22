@@ -4,7 +4,7 @@ version: 0.0.5
 homepage: https://github.com/AhmedAlboishe/arabic_justified_text
 
 environment:
-  sdk: ^3.10.0
+  sdk: '>=3.0.0 <4.0.0'
   flutter: ">=1.17.0"
 
 dependencies:
