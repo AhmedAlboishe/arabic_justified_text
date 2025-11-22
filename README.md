@@ -7,39 +7,47 @@
 [![pub package](https://img.shields.io/pub/v/arabic_justified_text.svg)](https://pub.dev/packages/arabic_justified_text)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/AhmedAlboishe/arabic_justified_text/blob/main/LICENSE)
 
-<!-- [English](#english) | [العربية](#arabic)
-
-![Demo](https://via.placeholder.com/800x400/4CAF50/FFFFFF?text=Add+Your+Demo+GIF+Here) -->
 
 </div>
 
 
-## 🌟 Overview
+
+## Table of Contents
+
+- [🌟 Overview](#overview)
+- [✨ Features](#features)
+- [📦 Installation](#installation)
+- [🚀 Quick Start](#quick-start)
+- [📖 Parameters](#parameters)
+- [💡 Examples](#examples)
+- [🕌 Special Features](#special-features)
+- [🎨 Advanced Usage](#advanced-usage)
+- [🤝 Contributing](#contributing)
+- [📋 Roadmap](#roadmap)
+- [🐛 Known Issues](#known-issues)
+- [⭐ Show Your Support](#show-your-support)
+
+
+
+<h2 id="overview">🌟 Overview</h2>
 
 **Arabic Justified Text** is a Flutter package that provides beautiful text justification for Arabic text using **Kashida (ـ)** instead of adding extra spaces between words. This creates a more natural and aesthetically pleasing appearance for justified Arabic text.
 
-### ✨ Features
+
+
+<h2 id="features">✨ Features</h2>
 
 - ✅ **Smart Kashida Distribution** - Intelligently distributes Kashida across words
 - ✅ **Diacritics Support** - Properly handles Arabic diacritics (Tashkeel)
 - ✅ **Mixed Text Support** - Works with Arabic and English text together
 - ✅ **Line Break Support** - Respects `\n` characters in text
 - ✅ **Theme Integration** - Inherits default text styles from your app theme
-- ✅ **Customizable** - Full control over text styling
+- ✅ **RichText Support** - Advanced styling with `ArabicJustifiedRichText`
+- ✅ **Sacred Text Handling** - Automatically excludes "Allah" (الله) from Kashida
+- ✅ **Customizable Exclusions** - Add your own words to exclude from Kashida
 - ✅ **Performance Optimized** - Efficient text processing
-- ✅ **RTL Support** - Built-in right-to-left text direction
+- ✅ **RTL/LTR Support** - Configurable text direction (RTL by default)
 
-
-## Table of Contents
-
-- [📦 Installation](#installation)
-- [🚀 Quick Start](#quick-start)
-- [📖 Parameters](#parameters)
-- [💡 Examples](#examples)
-- [🤝 Contributing](#contributing)
-- [📋 Roadmap](#roadmap)
-- [🐛 Known Issues](#known-issues)
-- [⭐ Show Your Support](#show-your-support)
 
 
 <h2 id="installation">📦 Installation</h2>
@@ -48,13 +56,15 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  arabic_justified_text: ^0.0.4
+  arabic_justified_text: ^0.0.5
 ```
 Then run:
 
 ```Dart
 flutter pub get
 ```
+
+
 
 <h2 id="quick-start">🚀 Quick Start</h2>
 
@@ -84,24 +94,49 @@ ArabicJustifiedText(
 
 ```Dart
 ArabicJustifiedText(
-  'النص العربي الطويل هنا...',
+  'أشهد أن لا إله إلا الله، وأن محمدًا رسول الله',
   style: TextStyle(fontSize: 16, height: 1.8),
   enableKashida: true,
   maxLines: 5,
   overflow: TextOverflow.ellipsis,
+  textAlign: TextAlign.justify,
+  textDirection: TextDirection.rtl,
+  excludedWords: ['محمدا', 'رسول'], // Optional: exclude specific words
 )
 ```
 
 
+
 <h2 id="parameters">📖 Parameters</h2>
+
+### ArabicJustifiedText
+For simple text with single style.
 
 | Parameter | Type | Default | Description |
 |-----------|------|---------|-------------|
 | `text` | `String` | **required** | The text to display |
 | `style` | `TextStyle?` | `null` | Text style (inherits from theme if null) |
-| `enableKashida` | `bool` | `true` | Enable/disable Kashida justification |
 | `maxLines` | `int?` | `null` | Maximum number of lines |
 | `overflow` | `TextOverflow?` | `null` | How to handle text overflow |
+| `textDirection` | `TextDirection` | `TextDirection.rtl` | Text direction (RTL/LTR) |
+| `textAlign` | `TextAlign` | `TextAlign.justify` | Text alignment |
+| `enableKashida` | `bool` | `true` | Enable/disable Kashida justification |
+| `excludedWords` | `List<String>?` | `null` | Words to exclude from Kashida |
+
+
+### ArabicJustifiedRichText
+For complex text with multiple styles.
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `textSpan` | `InlineSpan` | **required** | The text span to display |
+| `maxLines` | `int?` | `null` | Maximum number of lines |
+| `overflow` | `TextOverflow?` | `null` | How to handle text overflow |
+| `textDirection` | `TextDirection` | `TextDirection.rtl` | Text direction (RTL/LTR) |
+| `textAlign` | `TextAlign` | `TextAlign.justify` | Text alignment |
+| `enableKashida` | `bool` | `true` | Enable/disable Kashida justification |
+| `excludedWords` | `List<String>?` | `null` | Words to exclude from Kashida |
+
 
 
 <h2 id="examples">💡 Examples</h2>
@@ -147,7 +182,7 @@ ArabicJustifiedText(
 
 ```Dart
 ArabicJustifiedText(
-  'نص طويل جداً...',
+  'نص طويل جداً يحتوي على الكثير من الكلمات والجمل...',
   maxLines: 3,
   overflow: TextOverflow.ellipsis,
 )
@@ -164,6 +199,68 @@ ArabicJustifiedText(
 )
 ```
 
+
+
+<h2 id="special-features">🕌 Special Features</h2>
+
+### Respectful Handling of Sacred Words
+The package automatically excludes the word (الله) and its variations from Kashida application, preserving its traditional appearance.
+
+```Dart
+// The word "الله" will never automatically receive Kashida
+ArabicJustifiedText('بسم الله الرحمن الرحيم')
+// Result: بـسـم الله الـرحمـن الـرحيـم (الله remains unchanged)
+```
+
+#### Automatically excluded variations:
+
+- الله، اللَّه، ٱلله، لله، ولله، والله، بالله، تالله
+
+
+### Custom Word Exclusions
+
+You can exclude additional words from Kashida application:
+
+```Dart
+ArabicJustifiedText(
+  'اللهم صل وسلم وبارك على نبينا محمد وعلى آله وصحبه أجمعين',
+  excludedWords: ['محمد', 'اللهم'],
+)
+```
+
+#### Use cases:
+
+- 📖 Religious texts (prophets' names, sacred terms)
+- 📚 Brand names or proper nouns
+- ✍️ Technical terms that should remain unchanged
+
+
+
+<h2 id="advanced-usage">🎨 Advanced Usage</h2>
+
+### Using ArabicJustifiedRichText
+
+For complex text with multiple styles, colors, or interactions:
+
+```Dart
+ArabicJustifiedRichText(
+  enableKashida: true,
+  textSpan: TextSpan(
+    style: TextStyle(fontSize: 18),
+    children: [
+      TextSpan(text: 'النص العادي '),
+      TextSpan(
+        text: 'النص العريض',
+        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue),
+      ),
+      TextSpan(text: ' المزيد من النص'),
+    ],
+  ),
+)
+```
+
+
+
 <h2 id="contributing">🤝 Contributing</h2>
 
 Contributions are welcome! Here's how you can help:
@@ -175,22 +272,32 @@ Contributions are welcome! Here's how you can help:
 5. ⭐ **Star the Repo** - Show your support!
 
 
+
 <h2 id="roadmap">📋 Roadmap</h2>
 
-- Add more customization options
-- Support for different Kashida styles
+- Add more customization options for Kashida density
 - Performance improvements for very long texts
-- Add more examples and use cases
 - Support for other RTL languages (Persian, Urdu)
-- Web demo
+
 
 
 <h2 id="known-issues">🐛 Known Issues</h2>
 
-- Very long words might overflow on narrow screens (use maxLines to handle)
 - Performance may vary with extremely long texts (>10,000 characters)
+
 
 
 <h2 id="show-your-support">⭐ Show Your Support</h2>
 
-If this package helped you, please give it a ⭐ on [GitHub!](https://github.com/AhmedAlboishe/arabic_justified_text)
+If you find this package useful, please consider giving it a ⭐ on [GitHub!](https://github.com/AhmedAlboishe/arabic_justified_text)
+
+
+<h2></h2>
+
+
+<div align="center">
+Made with ❤️ for the Arabic Flutter Community
+
+[Report Bug](https://github.com/AhmedAlboishe/arabic_justified_text/issues) · [Request Feature](https://github.com/AhmedAlboishe/arabic_justified_text/issues)
+
+</div>
