@@ -1,4 +1,18 @@
 class TextProcessor {
+  static const _excludedWords = [
+    'الله',
+    'اللَّه',
+    'اللّه',
+    'ٱلله',
+    'ٱللَّه',
+    'لله',
+    'للَّه',
+    'ولله',
+    'والله',
+    'بالله',
+    'تالله',
+  ];
+
   static bool isArabicChar(String char) {
     if (char.isEmpty) return false;
     final code = char.codeUnitAt(0);
@@ -19,6 +33,28 @@ class TextProcessor {
   static bool isArabicWord(String word) {
     if (word.isEmpty) return false;
     return word.split('').any((char) => isArabicChar(char));
+  }
+
+  static String removeDiacritics(String text) {
+    return text.split('').where((char) => !isDiacritic(char)).join();
+  }
+
+  static bool isExcludedWord(String word, {List<String>? customExcluded}) {
+    final allExcluded = [
+      ..._excludedWords,
+      if (customExcluded != null) ...customExcluded,
+    ];
+
+    final wordWithoutDiacritics = removeDiacritics(word);
+
+    for (final excluded in allExcluded) {
+      final excludedWithoutDiacritics = removeDiacritics(excluded);
+      if (wordWithoutDiacritics == excludedWithoutDiacritics) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
   static bool canAddKashida(String char, String nextChar) {
@@ -68,7 +104,14 @@ class TextProcessor {
     return count;
   }
 
-  static List<KashidaPosition> getKashidaPositions(String word) {
+  static List<KashidaPosition> getKashidaPositions(
+    String word, {
+    List<String>? customExcluded,
+  }) {
+    if (isExcludedWord(word, customExcluded: customExcluded)) {
+      return [];
+    }
+
     final positions = <KashidaPosition>[];
 
     int i = 0;

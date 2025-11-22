@@ -1,12 +1,19 @@
 import 'text_processor.dart';
 
 class KashidaCalculator {
-  static String addKashidasToWord(String word, int totalKashidas) {
+  static String addKashidasToWord(
+    String word,
+    int totalKashidas, {
+    List<String>? excludedWords,
+  }) {
     if (totalKashidas <= 0 || !TextProcessor.isArabicWord(word)) {
       return word;
     }
 
-    final positions = TextProcessor.getKashidaPositions(word);
+    final positions = TextProcessor.getKashidaPositions(
+      word,
+      customExcluded: excludedWords,
+    );
     if (positions.isEmpty) return word;
 
     final kashidasPerPosition = List<int>.filled(positions.length, 0);
@@ -33,8 +40,14 @@ class KashidaCalculator {
     return result;
   }
 
-  static int getAvailableKashidaCount(String word) {
+  static int getAvailableKashidaCount(
+    String word, {
+    List<String>? excludedWords,
+  }) {
     if (!TextProcessor.isArabicWord(word)) return 0;
-    return TextProcessor.getKashidaPositions(word).length;
+    return TextProcessor.getKashidaPositions(
+      word,
+      customExcluded: excludedWords,
+    ).length;
   }
 }

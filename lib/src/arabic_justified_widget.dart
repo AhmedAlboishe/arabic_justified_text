@@ -10,6 +10,7 @@ class ArabicJustifiedText extends StatelessWidget {
   final TextDirection textDirection;
   final TextAlign textAlign;
   final bool enableKashida;
+  final List<String>? excludedWords;
 
   const ArabicJustifiedText(
     this.text, {
@@ -20,6 +21,7 @@ class ArabicJustifiedText extends StatelessWidget {
     this.textDirection = TextDirection.rtl,
     this.textAlign = TextAlign.justify,
     this.enableKashida = true,
+    this.excludedWords,
   });
 
   @override
@@ -167,7 +169,10 @@ class ArabicJustifiedText extends StatelessWidget {
     final arabicWordInfo = <MapEntry<int, int>>[];
 
     for (int i = 0; i < words.length; i++) {
-      final count = KashidaCalculator.getAvailableKashidaCount(words[i]);
+      final count = KashidaCalculator.getAvailableKashidaCount(
+        words[i],
+        excludedWords: excludedWords,
+      );
       if (count > 0) {
         arabicWordInfo.add(MapEntry(i, count));
       }
@@ -205,7 +210,11 @@ class ArabicJustifiedText extends StatelessWidget {
       String word = words[i];
       final kashidaCount = distribution[i] ?? 0;
 
-      word = KashidaCalculator.addKashidasToWord(word, kashidaCount);
+      word = KashidaCalculator.addKashidasToWord(
+        word,
+        kashidaCount,
+        excludedWords: excludedWords,
+      );
 
       resultWords.add(word);
     }
