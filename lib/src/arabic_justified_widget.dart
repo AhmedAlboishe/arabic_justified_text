@@ -2,16 +2,88 @@ import 'package:flutter/material.dart';
 
 import 'kashida_calculator.dart';
 
+/// A widget that displays Arabic text with beautiful justification using Kashida (ـ).
+///
+/// This widget provides natural Arabic text justification by adding Kashida characters
+/// instead of increasing spaces between words, creating a more aesthetically pleasing
+/// appearance for justified Arabic text.
+///
+/// Example:
+/// ```dart
+/// ArabicJustifiedText(
+///   'في عالم التكنولوجيا الحديثة، أصبحت تطبيقات الهاتف المحمول جزءاً أساسياً',
+///   style: TextStyle(fontSize: 18),
+///   enableKashida: true,
+/// )
+/// ```
+///
+/// See also:
+/// * [ArabicJustifiedRichText], for complex text with multiple styles
 class ArabicJustifiedText extends StatelessWidget {
+  /// The text to display.
+  ///
+  /// This will be justified using Kashida if [enableKashida] is true.
   final String text;
+
+  /// The style to use for the text.
+  ///
+  /// If null, defaults to the [DefaultTextStyle] of the [BuildContext].
   final TextStyle? style;
+
+  /// An optional maximum number of lines for the text to span.
+  ///
+  /// If the text exceeds the given number of lines, it will be truncated
+  /// according to [overflow].
   final int? maxLines;
+
+  /// How visual overflow should be handled.
+  ///
+  /// Defaults to [TextOverflow.clip] if null.
   final TextOverflow? overflow;
+
+  /// The directionality of the text.
+  ///
+  /// Defaults to [TextDirection.rtl] (right-to-left) for Arabic text.
   final TextDirection textDirection;
+
+  /// How the text should be aligned horizontally.
+  ///
+  /// Defaults to [TextAlign.justify].
   final TextAlign textAlign;
+
+  /// Whether to enable Kashida-based justification.
+  ///
+  /// If false, uses standard text justification with spaces.
+  /// Defaults to true.
   final bool enableKashida;
+
+  /// A list of words to exclude from Kashida application.
+  ///
+  /// Words in this list will not have Kashida characters added.
+  /// The word "Allah" (الله) and its variations are automatically excluded.
+  ///
+  /// Example:
+  /// ```dart
+  /// ArabicJustifiedText(
+  ///   'محمد رسول الله',
+  ///   excludedWords: ['محمد', 'رسول'],
+  /// )
+  /// ```
   final List<String>? excludedWords;
 
+  /// Creates an Arabic justified text widget.
+  ///
+  /// The [text] argument must not be null.
+  ///
+  /// Example:
+  /// ```dart
+  /// ArabicJustifiedText(
+  ///   'النص العربي هنا',
+  ///   style: TextStyle(fontSize: 16),
+  ///   enableKashida: true,
+  ///   maxLines: 5,
+  /// )
+  /// ```
   const ArabicJustifiedText(
     this.text, {
     super.key,

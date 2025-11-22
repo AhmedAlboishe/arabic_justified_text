@@ -2,15 +2,104 @@ import 'package:flutter/material.dart';
 
 import 'kashida_calculator.dart';
 
+/// A widget that displays rich text (with multiple styles) with Kashida justification.
+///
+/// This widget is similar to [ArabicJustifiedText] but supports [TextSpan] with
+/// multiple styles, allowing for complex text formatting with different colors,
+/// fonts, and decorations while maintaining Kashida-based justification.
+///
+/// **Note:** This widget currently does **not** support [WidgetSpan]. If your
+/// [textSpan] contains any [WidgetSpan] children, the widget will fall back to
+/// standard [RichText] rendering without Kashida justification. Use
+/// [ArabicJustifiedText] for simple text or consider splitting your text
+/// if you need both widgets and Kashida.
+///
+/// Example:
+/// ```dart
+/// ArabicJustifiedRichText(
+///   textSpan: TextSpan(
+///     style: TextStyle(fontSize: 18),
+///     children: [
+///       TextSpan(text: 'بسم الله '),
+///       TextSpan(
+///         text: 'الرحمن الرحيم',
+///         style: TextStyle(
+///           fontWeight: FontWeight.bold,
+///           color: Colors.blue,
+///         ),
+///       ),
+///     ],
+///   ),
+/// )
+/// ```
+///
+/// See also:
+/// * [ArabicJustifiedText], for simple text with single style
+/// * [RichText], the underlying Flutter widget for rich text
 class ArabicJustifiedRichText extends StatelessWidget {
+  /// The text span to display with multiple styles.
+  ///
+  /// Must contain only [TextSpan] children. [WidgetSpan] is not supported
+  /// and will cause the widget to fall back to standard [RichText] rendering.
   final InlineSpan textSpan;
+
+  /// An optional maximum number of lines for the text to span.
+  ///
+  /// If the text exceeds the given number of lines, it will be truncated
+  /// according to [overflow].
   final int? maxLines;
+
+  /// How visual overflow should be handled.
+  ///
+  /// Defaults to [TextOverflow.clip] if null
   final TextOverflow? overflow;
+
+  /// Whether to enable Kashida-based justification.
+  ///
+  /// If false, uses standard [RichText] rendering without Kashida.
+  /// Defaults to true.
   final bool enableKashida;
+
+  /// The directionality of the text.
+  ///
+  /// Defaults to [TextDirection.rtl] (right-to-left) for Arabic text.
   final TextDirection textDirection;
+
+  /// How the text should be aligned horizontally.
+  ///
+  /// Defaults to [TextAlign.justify].
   final TextAlign textAlign;
+
+  /// A list of words to exclude from Kashida application.
+  ///
+  /// Words in this list will not have Kashida characters added.
+  /// The word "Allah" (الله) and its variations are automatically excluded.
+  ///
+  /// Example:
+  /// ```dart
+  /// ArabicJustifiedRichText(
+  ///   excludedWords: ['محمد', 'رسول', 'الرحمن'],
+  ///   textSpan: TextSpan(text: '...'),
+  /// )
+  /// ```
   final List<String>? excludedWords;
 
+  /// Creates an Arabic justified rich text widget.
+  ///
+  /// The [textSpan] argument must not be null and should contain only
+  /// [TextSpan] children (no [WidgetSpan]).
+  ///
+  /// Example:
+  /// ```dart
+  /// ArabicJustifiedRichText(
+  ///   textSpan: TextSpan(
+  ///     children: [
+  ///       TextSpan(text: 'عادي '),
+  ///       TextSpan(text: 'عريض', style: TextStyle(fontWeight: FontWeight.bold)),
+  ///     ],
+  ///   ),
+  /// )
+  /// ```
   const ArabicJustifiedRichText({
     super.key,
     required this.textSpan,

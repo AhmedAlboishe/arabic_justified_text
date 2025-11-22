@@ -1,6 +1,22 @@
 import 'text_processor.dart';
 
+/// Utility class for calculating and applying Kashida to Arabic words.
+///
+/// This class provides static methods to determine valid Kashida positions
+/// in Arabic words and apply Kashida characters for text justification.
 class KashidaCalculator {
+  /// Adds Kashida characters to an Arabic word.
+  ///
+  /// Distributes the specified number of Kashida characters across
+  /// valid positions in the word while respecting Arabic typography rules.
+  ///
+  /// Parameters:
+  /// * [word] - The Arabic word to process
+  /// * [totalKashidas] - Number of Kashida characters to add
+  /// * [excludedWords] - Optional list of words to exclude from processing
+  ///
+  /// Returns the word with Kashida characters added, or the original word
+  /// if it's not Arabic or is in the excluded list.
   static String addKashidasToWord(
     String word,
     int totalKashidas, {
@@ -30,8 +46,7 @@ class KashidaCalculator {
 
       if (kashidaCount > 0) {
         final kashidas = 'ـ' * kashidaCount;
-        result =
-            result.substring(0, pos.position) +
+        result = result.substring(0, pos.position) +
             kashidas +
             result.substring(pos.position);
       }
@@ -40,6 +55,16 @@ class KashidaCalculator {
     return result;
   }
 
+  /// Gets the number of valid Kashida positions in a word.
+  ///
+  /// Returns the count of positions where Kashida can be added
+  /// according to Arabic typography rules.
+  ///
+  /// Parameters:
+  /// * [word] - The word to analyze
+  /// * [excludedWords] - Optional list of words to exclude
+  ///
+  /// Returns 0 if the word is not Arabic or is excluded.
   static int getAvailableKashidaCount(
     String word, {
     List<String>? excludedWords,
