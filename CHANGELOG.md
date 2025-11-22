@@ -1,3 +1,11 @@
+## 0.0.5
+
+### New Features
+* Added `ArabicJustifiedRichText` widget for complex multi-style text
+* Automatic exclusion of "Allah" (الله) from Kashida
+* Added `excludedWords` parameter for custom word exclusions
+* Added `textDirection` and `textAlign` parameters
+
 ## 0.0.4
  * **Update README.md file**
 
