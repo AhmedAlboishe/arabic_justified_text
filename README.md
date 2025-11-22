@@ -56,7 +56,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  arabic_justified_text: ^0.0.5
+  arabic_justified_text: ^0.0.6
 ```
 Then run:
 
@@ -240,6 +240,10 @@ ArabicJustifiedText(
 
 ### Using ArabicJustifiedRichText
 
+> **⚠️ Important:** `ArabicJustifiedRichText` currently does **not** support `WidgetSpan`. 
+> If your text contains widgets (icons, images, etc.), the Kashida justification will be 
+> disabled and it will fall back to standard `RichText` rendering.
+
 For complex text with multiple styles, colors, or interactions:
 
 ```Dart
@@ -275,14 +279,17 @@ Contributions are welcome! Here's how you can help:
 
 <h2 id="roadmap">📋 Roadmap</h2>
 
-- Add more customization options for Kashida density
-- Performance improvements for very long texts
-- Support for other RTL languages (Persian, Urdu)
+- [ ] **WidgetSpan support for ArabicJustifiedRichText** - Allow mixing text and widgets with Kashida
+- [ ] Add more customization options for Kashida density
+- [ ] Performance improvements for very long texts
+- [ ] Support for other RTL languages (Persian, Urdu)
 
 
 
 <h2 id="known-issues">🐛 Known Issues</h2>
 
+- **WidgetSpan not supported in ArabicJustifiedRichText** - If you need to mix text with widgets (icons, images), use `enableKashida: false` or use standard `RichText`
+- Very long words might overflow on narrow screens (use `maxLines` to handle)
 - Performance may vary with extremely long texts (>10,000 characters)
 
 
