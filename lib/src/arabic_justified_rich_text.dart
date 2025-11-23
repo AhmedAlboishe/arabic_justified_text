@@ -20,7 +20,7 @@ import 'kashida_calculator.dart';
 ///   textSpan: TextSpan(
 ///     style: TextStyle(fontSize: 18),
 ///     children: [
-///       TextSpan(text: 'بسم الله '),
+///       TextSpan(text: 'بسم اللّٰه '),
 ///       TextSpan(
 ///         text: 'الرحمن الرحيم',
 ///         style: TextStyle(
@@ -73,7 +73,7 @@ class ArabicJustifiedRichText extends StatelessWidget {
   /// A list of words to exclude from Kashida application.
   ///
   /// Words in this list will not have Kashida characters added.
-  /// The word "Allah" (الله) and its variations are automatically excluded.
+  /// The word "Allah" (اللّٰه) and its variations are automatically excluded.
   ///
   /// Example:
   /// ```dart

@@ -60,12 +60,12 @@ class ArabicJustifiedText extends StatelessWidget {
   /// A list of words to exclude from Kashida application.
   ///
   /// Words in this list will not have Kashida characters added.
-  /// The word "Allah" (الله) and its variations are automatically excluded.
+  /// The word "Allah" (اللّٰه) and its variations are automatically excluded.
   ///
   /// Example:
   /// ```dart
   /// ArabicJustifiedText(
-  ///   'محمد رسول الله',
+  ///   'محمد رسول اللّٰه',
   ///   excludedWords: ['محمد', 'رسول'],
   /// )
   /// ```

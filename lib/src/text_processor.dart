@@ -17,6 +17,32 @@ class TextProcessor {
     'تالله',
   ];
 
+  static const _punctuationMarks = [
+    '،',
+    '.',
+    '!',
+    '?',
+    '؟',
+    ';',
+    ':',
+    '-',
+    '–',
+    '—',
+    '(',
+    ')',
+    '[',
+    ']',
+    '{',
+    '}',
+    '"',
+    "'",
+    '«',
+    '»',
+    '…',
+    '..',
+    '...',
+  ];
+
   /// Checks if a character is an Arabic character.
   ///
   /// Returns true if the character is in the Arabic Unicode range.
@@ -48,11 +74,78 @@ class TextProcessor {
     return word.split('').any((char) => isArabicChar(char));
   }
 
+  /// Removes all punctuation marks from the given text.
+  ///
+  /// This method strips common Arabic and English punctuation marks from the text,
+  /// which is useful for comparing words that may have trailing or surrounding
+  /// punctuation.
+  ///
+  /// Parameters:
+  /// * [text] - The text to clean
+  ///
+  /// Returns the text with all punctuation marks removed and trimmed.
+  ///
+  /// Example:
+  /// ```dart
+  /// removePunctuation('اللّٰه،')   // Returns: 'اللّٰه'
+  /// removePunctuation('(hello!)') // Returns: 'hello'
+  /// removePunctuation('text...')  // Returns: 'text'
+  /// ```
+  ///
+  /// See also:
+  /// * [cleanWord], which removes both punctuation and diacritics
+  /// * [removeDiacritics], which removes only diacritics
+  static String removePunctuation(String text) {
+    String result = text;
+    for (final mark in _punctuationMarks) {
+      result = result.replaceAll(mark, '');
+    }
+    return result.trim();
+  }
+
   /// Removes all diacritics from text.
   ///
   /// Returns the text with all Tashkeel marks removed.
   static String removeDiacritics(String text) {
     return text.split('').where((char) => !isDiacritic(char)).join();
+  }
+
+  /// Cleans a word by removing both punctuation marks and diacritics.
+  ///
+  /// This method performs a complete cleanup of an Arabic word by:
+  /// 1. Removing all punctuation marks (using [removePunctuation])
+  /// 2. Removing all diacritics/Tashkeel (using [removeDiacritics])
+  ///
+  /// This is essential for accurate word comparison, especially when checking
+  /// against the excluded words list, as words may appear with various
+  /// combinations of punctuation and diacritics.
+  ///
+  /// Parameters:
+  /// * [word] - The word to clean
+  ///
+  /// Returns the word with all punctuation and diacritics removed.
+  ///
+  /// Example:
+  /// ```dart
+  /// cleanWord('اللّٰه،')      // Returns: 'اللّٰه'
+  /// cleanWord('اللَّه.')     // Returns: 'اللّٰه'
+  /// cleanWord('(اللَّه،)')   // Returns: 'اللّٰه'
+  /// cleanWord('مُحَمَّد!')   // Returns: 'محمد'
+  /// ```
+  ///
+  /// This ensures that words like "اللّٰه،" or "اللَّه." are correctly
+  /// identified as the sacred word "اللّٰه" and excluded from Kashida.
+  ///
+  /// See also:
+  /// * [removePunctuation], which removes only punctuation
+  /// * [removeDiacritics], which removes only diacritics
+  /// * [isExcludedWord], which uses this method for word comparison
+  static String cleanWord(String word) {
+    String cleaned = removePunctuation(word);
+
+    cleaned = removeDiacritics(cleaned);
+
+    return cleaned;
   }
 
   /// Checks if a word should be excluded from Kashida application.
@@ -61,7 +154,7 @@ class TextProcessor {
   /// * [word] - The word to check
   /// * [customExcluded] - Optional additional words to exclude
   ///
-  /// Returns true if the word is in the default excluded list (like "الله")
+  /// Returns true if the word is in the default excluded list (like "اللّٰه")
   /// or in the custom excluded list.
   static bool isExcludedWord(String word, {List<String>? customExcluded}) {
     final allExcluded = [
@@ -69,11 +162,13 @@ class TextProcessor {
       if (customExcluded != null) ...customExcluded,
     ];
 
-    final wordWithoutDiacritics = removeDiacritics(word);
+    final cleanedWord = cleanWord(word);
+
+    if (cleanedWord.isEmpty) return false;
 
     for (final excluded in allExcluded) {
-      final excludedWithoutDiacritics = removeDiacritics(excluded);
-      if (wordWithoutDiacritics == excludedWithoutDiacritics) {
+      final cleanedExcluded = cleanWord(excluded);
+      if (cleanedWord == cleanedExcluded) {
         return true;
       }
     }
