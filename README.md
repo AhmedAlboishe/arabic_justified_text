@@ -1,5 +1,5 @@
 
-<img width="1484" height="267" alt="Frame 5" src="https://github.com/user-attachments/assets/44c98131-f1b1-433a-acb8-67afe2750cb5" />
+<img width="1484" height="267" alt="Arabic Justified Text" src="https://github.com/user-attachments/assets/44c98131-f1b1-433a-acb8-67afe2750cb5" />
 
 
 <div align="center">
@@ -60,7 +60,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  arabic_justified_text: ^0.0.7
+  arabic_justified_text: ^0.0.8
 ```
 Then run:
 
