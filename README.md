@@ -1,3 +1,7 @@
+
+<img width="1484" height="267" alt="Frame 5" src="https://github.com/user-attachments/assets/44c98131-f1b1-433a-acb8-67afe2750cb5" />
+
+
 <div align="center">
 
 # 📝 Arabic Justified Text
