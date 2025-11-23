@@ -1,5 +1,5 @@
 
-<img width="1484" height="267" alt="Arabic Justified Text" src="https://github.com/user-attachments/assets/44c98131-f1b1-433a-acb8-67afe2750cb5" />
+<img alt="Arabic Justified Text" src="https://github.com/user-attachments/assets/44c98131-f1b1-433a-acb8-67afe2750cb5" />
 
 
 <div align="center">
@@ -60,7 +60,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  arabic_justified_text: ^0.0.8
+  arabic_justified_text: ^1.0.0
 ```
 Then run:
 
@@ -292,6 +292,7 @@ Contributions are welcome! Here's how you can help:
 
 <h2 id="known-issues">🐛 Known Issues</h2>
 
+- **Last word wrapping with certain fonts (e.g., Amiri Quran)** - With some Quranic fonts, the last word of a line may wrap to the next line due to Kashida width calculations. This happens because Kashida characters in Quranic fonts are wider than in regular fonts
 - **WidgetSpan not supported in ArabicJustifiedRichText** - If you need to mix text with widgets (icons, images), use `enableKashida: false` or use standard `RichText`
 - Very long words might overflow on narrow screens (use `maxLines` to handle)
 - Performance may vary with extremely long texts (>10,000 characters)
