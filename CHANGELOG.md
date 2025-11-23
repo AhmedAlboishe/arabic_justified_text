@@ -1,9 +1,18 @@
+## 0.0.7
+
+### 🐛 Bug Fixes
+* **Fixed sacred word detection with punctuation** - Words like "اللّٰه،" or "اللّٰه." are now correctly excluded from Kashida
+* **Improved word comparison** - Added punctuation removal before comparing excluded words
+* **Better handling of mixed text** - Words with both diacritics and punctuation are now properly cleaned and compared
+
+
 ## 0.0.6
 
 ### 📚 Documentation
 * **Added comprehensive dartdoc comments** - All public APIs now have detailed documentation
 * **Improved API documentation** - Added examples and usage guides for all widgets
 * **Clarified WidgetSpan limitation** - Documented that `ArabicJustifiedRichText` does not support `WidgetSpan`
+
 
 ## 0.0.5
 
@@ -13,14 +22,18 @@
 * Added `excludedWords` parameter for custom word exclusions
 * Added `textDirection` and `textAlign` parameters
 
+
 ## 0.0.4
  * **Update README.md file**
+
 
 ## 0.0.3
  * **Fix headers and links in README.md**
 
+
 ## 0.0.2
  * **Update README.md file**
+
 
 ## 0.0.1
 
@@ -46,7 +59,5 @@
 
 ### Planned
 - [ ] More customization options
-- [ ] Different Kashida styles
 - [ ] Performance improvements
 - [ ] Support for other RTL languages
-- [ ] Web demo -->
