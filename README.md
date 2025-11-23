@@ -43,7 +43,7 @@
 - ✅ **Line Break Support** - Respects `\n` characters in text
 - ✅ **Theme Integration** - Inherits default text styles from your app theme
 - ✅ **RichText Support** - Advanced styling with `ArabicJustifiedRichText`
-- ✅ **Sacred Text Handling** - Automatically excludes "Allah" (الله) from Kashida
+- ✅ **Sacred Text Handling** - Automatically excludes "Allah" (اللّٰه) from Kashida
 - ✅ **Customizable Exclusions** - Add your own words to exclude from Kashida
 - ✅ **Performance Optimized** - Efficient text processing
 - ✅ **RTL/LTR Support** - Configurable text direction (RTL by default)
@@ -94,7 +94,7 @@ ArabicJustifiedText(
 
 ```Dart
 ArabicJustifiedText(
-  'أشهد أن لا إله إلا الله، وأن محمدًا رسول الله',
+  'أشهد أن لا إله إلا اللّٰه، وأن محمدًا رسول اللّٰه',
   style: TextStyle(fontSize: 16, height: 1.8),
   enableKashida: true,
   maxLines: 5,
@@ -204,17 +204,17 @@ ArabicJustifiedText(
 <h2 id="special-features">🕌 Special Features</h2>
 
 ### Respectful Handling of Sacred Words
-The package automatically excludes the word (الله) and its variations from Kashida application, preserving its traditional appearance.
+The package automatically excludes the word (اللّٰه) and its variations from Kashida application, preserving its traditional appearance.
 
 ```Dart
-// The word "الله" will never automatically receive Kashida
-ArabicJustifiedText('بسم الله الرحمن الرحيم')
-// Result: بـسـم الله الـرحمـن الـرحيـم (الله remains unchanged)
+// The word "اللّٰه" will never automatically receive Kashida
+ArabicJustifiedText('بسم اللّٰه الرحمن الرحيم')
+// Result: بـسـم اللّٰه الـرحمـن الـرحيـم (اللّٰه remains unchanged)
 ```
 
 #### Automatically excluded variations:
 
-- الله، اللَّه، ٱلله، لله، ولله، والله، بالله، تالله
+- اللّٰه، اللَّه، ٱللّٰه، للّٰه، وللّٰه، واللّٰه، باللّٰه، تاللّٰه
 
 
 ### Custom Word Exclusions
