@@ -60,7 +60,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  arabic_justified_text: ^1.0.1
+  arabic_justified_text: ^1.0.2
 ```
 Then run:
 
