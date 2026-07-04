@@ -1,7 +1,7 @@
 name: arabic_justified_text
 description: "Beautiful Arabic text justification using Kashida (ـ) instead of spaces."
-version: 1.0.2
-homepage: https://github.com/AhmedAlboishe/arabic_justified_text
+version: 1.0.3
+homepage: https://arabic-justified-text.vexaltech.dev/
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
